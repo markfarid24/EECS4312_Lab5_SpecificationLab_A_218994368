@@ -1,5 +1,5 @@
-## Student Name:
-## Student ID: 
+## Student Name: Mark Farid
+## Student ID: 218994368
 
 """
 Public test suite for the meeting slot suggestion exercise.
@@ -64,3 +64,46 @@ def test_lunch_break_blocks_all_slots_during_lunch():
     assert "12:45" not in slots
 
 """TODO: Add at least 5 additional test cases to test your implementation."""
+def test_overlapping_events():
+    events = [
+        {"start": "09:30", "end": "10:30"},
+        {"start": "10:00", "end": "11:00"},
+    ]
+    slots = suggest_slots(events, meeting_duration=30, day="2026-02-01")
+
+    assert "09:30" not in slots
+    assert "10:00" not in slots
+    assert "10:15" not in slots
+    assert "10:30" not in slots
+    assert "11:00" in slots
+
+
+def test_back_to_back_events():
+    events = [
+        {"start": "09:30", "end": "10:00"},
+        {"start": "10:00", "end": "10:30"},
+    ]
+    slots = suggest_slots(events, meeting_duration=30, day="2026-02-01")
+
+    assert "09:30" not in slots  
+    assert "10:00" not in slots  
+    assert "10:30" in slots  
+
+
+def test_event_before_hours():
+    events = [{"start": "08:30", "end": "09:30"}]
+    slots = suggest_slots(events, meeting_duration=30, day="2026-02-01")
+
+    assert "09:00" not in slots
+    assert "09:15" not in slots
+    assert "09:30" in slots
+
+
+def test_duration():
+    slots = suggest_slots([], meeting_duration=480, day="2026-02-01")  
+    assert slots == []
+
+def test_meeting_end():
+    slots = suggest_slots([], meeting_duration=15, day="2026-02-01")
+    assert "16:45" in slots
+
