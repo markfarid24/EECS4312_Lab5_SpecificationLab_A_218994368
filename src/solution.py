@@ -14,7 +14,6 @@ def suggest_slots(events: List[Dict[str, str]], meeting_duration: int, day: str)
     work_start = _to_minutes("09:00") 
     work_end = _to_minutes("17:00")
     step = 30 
-
     intervals: List[Tuple[int, int]] = []
     for ev in events:
         s = _to_minutes(ev["start"])
@@ -23,9 +22,7 @@ def suggest_slots(events: List[Dict[str, str]], meeting_duration: int, day: str)
         e = min(e, work_end)
         if s < e:
             intervals.append((s, e))
-
     busy = _merge(intervals)
-
     free: List[Tuple[int, int]] = []
     cur = work_start
     for s, e in busy:
@@ -34,16 +31,13 @@ def suggest_slots(events: List[Dict[str, str]], meeting_duration: int, day: str)
         cur = max(cur, e)
     if cur < work_end:
         free.append((cur, work_end))
-
     out: List[str] = []
     for gs, ge in free:
         latest = ge - meeting_duration
         if latest < gs:
             continue
-
         t = gs
         while t <= latest:
             out.append(_to_hhmm(t))
             t += step
-
     return out
