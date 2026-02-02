@@ -10,30 +10,30 @@ for full requirements.
 """
 from typing import List, Dict, Tuple
 
-def suggest_slots(events: List[Dict[str, str]], meeting_duration: int, day: str) -> List[str]:
-    work_start = _to_minutes("09:00") 
-    work_end = _to_minutes("17:00")
+def suggest_slots(events: List[Dict[str, str]], meetingDuration: int, day: str) -> List[str]:
+    workStart = _to_minutes("09:00") 
+    workEnd = _to_minutes("17:00")
     step = 30 
     intervals: List[Tuple[int, int]] = []
     for ev in events:
         s = _to_minutes(ev["start"])
         e = _to_minutes(ev["end"])
-        s = max(s, work_start)
-        e = min(e, work_end)
+        s = max(s, workStart)
+        e = min(e, workEnd)
         if s < e:
             intervals.append((s, e))
     busy = _merge(intervals)
     free: List[Tuple[int, int]] = []
-    cur = work_start
+    cur = workStart
     for s, e in busy:
         if cur < s:
             free.append((cur, s))
         cur = max(cur, e)
-    if cur < work_end:
-        free.append((cur, work_end))
+    if cur < workEnd:
+        free.append((cur, workEnd))
     out: List[str] = []
     for gs, ge in free:
-        latest = ge - meeting_duration
+        latest = ge - meetingDuration
         if latest < gs:
             continue
         t = gs
