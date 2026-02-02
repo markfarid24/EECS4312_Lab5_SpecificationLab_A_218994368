@@ -1,6 +1,6 @@
-## TODO:
-## Student Name:
-## Student ID: 
+## TODO: 
+## Student Name: Mark Farid
+## Student ID: 218994368
 
 # Meeting Slot Suggestion Lab Repository
 
