@@ -10,6 +10,26 @@ for full requirements.
 """
 from typing import List, Dict, Tuple
 
+def _to_minutes(t: str) -> int:
+    hh, mm = t.split(":")
+    return int(hh) * 60 + int(mm)
+
+def _to_hhmm(m: int) -> str:
+    return f"{m // 60:02d}:{m % 60:02d}"
+
+def _merge(intervals: List[Tuple[int, int]]) -> List[Tuple[int, int]]:
+    if not intervals:
+        return []
+    intervals.sort(key=lambda x: x[0])
+    merged = [intervals[0]]
+    for s, e in intervals[1:]:
+        ps, pe = merged[-1]
+        if s <= pe:
+            merged[-1] = (ps, max(pe, e))
+        else:
+            merged.append((s, e))
+    return merged
+
 def suggest_slots(events: List[Dict[str, str]], meeting_duration: int, day: str) -> List[str]:
     workStart = _to_minutes("09:00") 
     workEnd = _to_minutes("17:00")
