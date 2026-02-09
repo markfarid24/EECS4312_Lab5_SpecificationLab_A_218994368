@@ -69,26 +69,26 @@ def test_event_before_hours():
     slots = suggest_slots(events, meeting_duration=30, day="2026-02-01")
     assert "09:00" not in slots
     assert "09:15" not in slots
-    assert "09:30" in slots
+    assert "09:30" not in slots
+    assert "09:45" in slots
 def test_overlapping_events():
     events = [
         {"start": "08:30", "end": "10:30"},
         {"start": "10:00", "end": "12:00"},
     ]
     slots = suggest_slots(events, meeting_duration=30, day="2026-02-01")
-    assert "07:30" not in slots
-    assert "09:00" not in slots
-    assert "09:15" not in slots
-    assert "10:30" not in slots
-    assert "11:00" in slots
+    assert "11:30" not in slots
+    assert "12:30" not in slots
+    assert "12:45" not in slots
+    assert "13:30" in slots
 def test_back_to_back_events():
     events = [
-        {"start": "08:30", "end": "9:00"},
-        {"start": "9:00", "end": "10:30"},
+        {"start": "08:30", "end": "09:00"},
+        {"start": "09:00", "end": "10:30"},
     ]
     slots = suggest_slots(events, meeting_duration=30, day="2026-02-01")
-    assert "09:30" not in slots  
-    assert "11:00" not in slots  
+    assert "10:30" not in slots  
+    assert "11:00" in slots  
     assert "11:30" in slots  
 def test_meeting_end():
     slots = suggest_slots([], meeting_duration=15, day="2026-02-01")
