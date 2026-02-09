@@ -96,3 +96,9 @@ def test_meeting_end():
 def test_duration():
     slots = suggest_slots([], meeting_duration=480, day="2026-02-01")  
     assert slots == []
+
+def test_friday_no_starts_after_1500():
+    slots = suggest_slots([], meeting_duration=30, day="2026-02-06")
+    assert "15:00" in slots
+    assert "15:30" not in slots
+    assert "17:00" not in slots
