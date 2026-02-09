@@ -77,8 +77,8 @@ def test_overlapping_events():
     ]
     slots = suggest_slots(events, meeting_duration=30, day="2026-02-01")
     assert "07:30" not in slots
-    assert "9:00" not in slots
-    assert "9:15" not in slots
+    assert "09:00" not in slots
+    assert "09:15" not in slots
     assert "10:30" not in slots
     assert "11:00" in slots
 def test_back_to_back_events():
@@ -92,7 +92,7 @@ def test_back_to_back_events():
     assert "11:30" in slots  
 def test_meeting_end():
     slots = suggest_slots([], meeting_duration=15, day="2026-02-01")
-    assert "17:00" in slots
+    assert "16:45" in slots
 def test_duration():
     slots = suggest_slots([], meeting_duration=480, day="2026-02-01")  
     assert slots == []
