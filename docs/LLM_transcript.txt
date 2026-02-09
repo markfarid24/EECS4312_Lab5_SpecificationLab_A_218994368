@@ -1,10 +1,10 @@
-## Student Name:
-## Student ID: 
+## Student Name: Mark Farid
+## Student ID: 218994368
 
-Prompt 1: "Copy paste your question"
-LLM Response 1: "Copy paste LLMs response"
-
---------------------------------------------------
-Prompt 2: "Copy paste your question"
-LLM Response 2: "Copy paste LLMs response"
---------------------------------------------------
+Prompt 1: how do i fork a repo
+LLM Response 1: 
+Go to the repo you want to fork (the page with the files).
+Click Fork (top-right).
+Choose your account (or an organization).
+(Optional) Change the repo name.
+Click Create fork.
