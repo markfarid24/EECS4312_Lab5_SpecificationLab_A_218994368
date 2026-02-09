@@ -30,6 +30,9 @@ def _merge(intervals: List[Tuple[int, int]]) -> List[Tuple[int, int]]:
             merged.append((s, e))
     return merged
 
+def is_friday(day: str) -> bool:
+    return datetime.strptime(day, "%Y-%m-%d").weekday() == 4
+
 def suggest_slots(events: List[Dict[str, str]], meeting_duration: int, day: str) -> List[str]:
     workStart = _to_minutes("09:00") 
     workEnd = _to_minutes("17:00")
@@ -54,12 +57,16 @@ def suggest_slots(events: List[Dict[str, str]], meeting_duration: int, day: str)
     if cur < workEnd:
         free.append((cur, workEnd))
     out: List[str] = []
+    fridayCut = _to_minutes("15:00")
+    friday = is_friday(day)
+
     for gs, ge in free:
         latest = ge - meeting_duration
         if latest < gs:
             continue
         t = gs
         while t <= latest:
-            out.append(_to_hhmm(t))
+            if (not friday) or (t <= fridayCut):
+                out.append(_to_hhmm(t))
             t += step
     return out
