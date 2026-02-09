@@ -35,9 +35,10 @@ def suggest_slots(events: List[Dict[str, str]], meeting_duration: int, day: str)
     workEnd = _to_minutes("17:00")
     step = 15 
     intervals: List[Tuple[int, int]] = []
+    buffer = 15
     for ev in events:
         s = _to_minutes(ev["start"])
-        e = _to_minutes(ev["end"])
+        e = _to_minutes(ev["end"]) + buffer
         s = max(s, workStart)
         e = min(e, workEnd)
         if s < e:
