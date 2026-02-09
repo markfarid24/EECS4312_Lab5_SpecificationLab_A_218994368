@@ -1,10 +1,8 @@
-## Student Name:
-## Student ID: 
+## Student Name: Mark Farid
+## Student ID: 218994368
 
-Prompt 1: "Copy paste your question"
-LLM Response 1: "Copy paste LLMs response"
-
---------------------------------------------------
-Prompt 2: "Copy paste your question"
-LLM Response 2: "Copy paste LLMs response"
---------------------------------------------------
+Prompt 1: how do i create a new branch in my repo called Lab6_218994368?
+LLM Response 1: 
+git checkout -b Lab6_218994368
+Make sure the branch is pushed so it’s visible on GitHub:
+git push -u origin Lab6_218994368
