@@ -9,6 +9,7 @@ on a given day, taking into account working hours, and possible specific constra
 for full requirements.
 """
 from typing import List, Dict, Tuple
+from datetime import datetime
 
 def _to_minutes(t: str) -> int:
     hh, mm = t.split(":")
